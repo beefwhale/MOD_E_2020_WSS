@@ -6,12 +6,14 @@
     <!--Bootstrap CSS-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!--CSS-->
-    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="styles.css" />
     <!--Javascript-->
     <script type="text/javascript" src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <title>Global Cases</title>
 </head>
-<body onload="preLoad()">
+<body onload="sortTask3List(); task5Chart(); sortTask6List(); sortTask7List();">
     <div class="container-fluid">
         <!--#1 Title with Logo-->
         <div class="row" id="title">
@@ -50,23 +52,23 @@
                     <div class="map">
                         <h5>Map of the World</h5>
                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 1366 768" style="enable-background:new 0 0 1366 768;" xml:space="preserve">
-                        <image style="overflow:visible;enable-background:new;" width="1200" height="715" xlink:href="2F4EF467.gif"  transform="matrix(1.1383 0 0 1.0741 0 0)">
+                             viewBox="0 0 1366 768" style="enable-background:new 0 0 1366 768;" xml:space="preserve">
+                        <image style="overflow:visible;enable-background:new;" width="1200" height="715" xlink:href="2F4EF467.gif" transform="matrix(1.1383 0 0 1.0741 0 0)">
                         </image>
                         <path class="st0" id="China" d="M951,313l15-7h16v7l19,9l18,9l23.9,5.5c0,0,15.1-2.5,18.1-5.5s16-9.8,16-9.8l11-15.2h-10c0,0-6-12,3-12
 	                        s15,4,15,0s0-13,0-13c12-4,20,0,20,0l9.4,7.8l3.6,7.2l12,8l4,3.9c0,0,1.3-2.3,0,5.2s-5,13-5,13s-3,0-8,4s-18,8-23,11s-20,4-20,7
 	                        s0,9,0,9l10,8l1,19l-7,18l-19,15h-19l-12.1,4H1028h-8l-5-7l-2-19c0,0,7-17-2-11s-19,8-19,8l-11,4c0,0-26-15-30-12s-19,0-19,0l12-15
-	                        l-12-3v-9l-12-6.9V341l14-4.5h12l3-18.5L951,313z"/>
+	                        l-12-3v-9l-12-6.9V341l14-4.5h12l3-18.5L951,313z" />
                         <path class="st0" id="USA" d="M205,372.6c-2.8,0-14,0-14,0l-11-13.6l-13-17.8c0,0-1-17.8,0-22s4-20.9,4-20.9h19h32l41-6.3h24l11,8.4l-5,6.3
 	                        l14,1v9.4v9.4l7-7.3c0,0-6-8.4,0-7.3c6,1,10,8.4,10,8.4s-1,7.3,0,8.4s13,3.7,13,3.7l8-13.1l11-5.2l12-2.1l6-5.2l8,1v10.5l-12,4.2
 	                        v9.9l-11,1l-3,14.3c-4,7.2-10,17.7-10,17.7L329,383l1,8.4l6,12.6c0,0-9,2.1-9,0c0-2.1-10-20.9-10-20.9h-10l-23,8.4l-9.7,3.1v10.4
-	                        c0,0-12.3-3-13.3-6.2c-1-3.1-7-15.7-7-15.7l-5,7.3l-11-7.3l-12,0l-10,0l-9,0L205,372.6z"/>
+	                        c0,0-12.3-3-13.3-6.2c-1-3.1-7-15.7-7-15.7l-5,7.3l-11-7.3l-12,0l-10,0l-9,0L205,372.6z" />
                         <path class="st0" id="Brazil" d="M435,491h-17h-5v-10h-11l-7,5v5h-6h-11v8v11v6c0,0-17-4-17,0s0,11,0,11h8l1,6h12h10l6,8c6,5,12,8,12,8l1,8h6
 	                        l5,11v6l-1,6l8,6l6,4v6l-5,6l-6,5l11,8h6l12-8v-8v-8l11-4c10-4,5-3,10-4s5-1,5-1l6-8v-12l8-7v-7c0,0-7-4,0-7s15-12,15-12s6-10,0-11
-	                        s-6-1-6-1s-10-6-13-6s-3,0-9,0s-16,0-16,0l-5-4l-6-7l-6-4v-5l-5-10L435,491z"/>
+	                        s-6-1-6-1s-10-6-13-6s-3,0-9,0s-16,0-16,0l-5-4l-6-7l-6-4v-5l-5-10L435,491z" />
                         <path class="st0" id="Australia" d="M1145.6,615H1131l-14,8l-12,6h-15h-8l-4-7v-12l-12-20c0,0,1-12,6-12s19,0,19,0l10-14c0,0,3.6-5,4.8-5
 	                        c1.2,0,3.2,4,6.2,0s9-11,9-11h6h10l13-6h9v13l5,6l5-2l8-11v-6l12,6v14l9,4l8,15l8,4.5l5,19.5v15l-10,9l-2,7l-4,9h-8h-9h-6h-11v-12
-	                        l-6-7l-7,1l-6-3L1145.6,615z"/>
+	                        l-6-7l-7,1l-6-3L1145.6,615z" />
                         <path class="st0" id="Russia" d="M818.8,315v11.7l2.7,7.6l-1.3,4.5l-4.5-2.7c0,0-4-5.8-5.4-6.3c-1.3-0.4-6.7-0.4-6.7-0.4l-4.9-2.5h-5.8l-5.8-3.8
 	                        l-7.2-3.1l-2.2-1.8l5.4-3.1l3.6-4.9v-4.9l3.6-9l-5.4-4.5l-9.4-1.8l-4.5-4.5l-3.1-6.2h-8.1l-2.2-4.6l4.9-1.8l-4.9-5.8l-2.2-9h-7.6
 	                        l-4-12.6V236l6.7-5.8l-2.2-4l-4.5-3.1l13.5-13.5l-2.7-10.8l-1.3-6.3l-1.3-8.5v-17.1l-4.9-7.2l4.5-6.7l8.1-4l8.1,3.1h8.1l9.4,6.3
@@ -85,26 +87,70 @@
 	                        l5.4,3.1l2.2,7.7c0,0,2.7-8.2,4-8.2c1.3,0,4.5,16.6,4.5,16.6l-2.2,11.2l-2.2,11.7l-12.1-1.8l-9.4,9.9l-13.1,9.4l-5.6-2.1l1.6-16.8
 	                        l-5.4-9l-6.7-8.5l-9.4-14.8l-7.2-4.5l-16.6-0.9l-3.6,5.4l-6.7,13.5l-11.2,1.3l-10.3,3.1h-13l-18.6-8.1l-7.5,0.4l-16.6-8l-0.4,10.2
 	                        l-10.3,2.2l-11.7-1.8l-8.1,4l-9,3.1l-5.8-2.7l-14.8-9l-11.2-1.8l-6.3-8.5l-11-9.4l-18.6-4.9l-10.3-0.9l-10.8,4.5l-13.5,11.2
-	                        l3.6,10.3l-12.6,0.4l-14.4-7.1l-6.3,5.3l-11.7,6.3l-6.7,6.7v6.3l3.6,3.6l0.4,4.5L818.8,315z"/>
+	                        l3.6,10.3l-12.6,0.4l-14.4-7.1l-6.3,5.3l-11.7,6.3l-6.7,6.7v6.3l3.6,3.6l0.4,4.5L818.8,315z" />
+                        <circle class="cls-2" cx="1169.37" cy="165.72" r="15.89" />
+                            <circle class="cls-2" cx="859.76" cy="202.57" r="36.85" />
+                            <circle class="cls-2" cx="1028.8" cy="85.61" r="22.29" />
+                            <circle class="cls-2" cx="1137.92" cy="564.37" r="9.38" />
+                            <circle class="cls-2" cx="859.76" cy="202.57" r="36.85" />
+                            <circle class="cls-2" cx="1194.19" cy="625.71" r="8.94" />
+                            <circle class="cls-2" cx="1114.86" cy="608.17" r="6.84" />
+                            <circle class="cls-2" cx="1092.57" cy="616.78" r="6.84" />
+                            <circle class="cls-2" cx="1169.37" cy="594.27" r="6.84" />
+                            <circle class="cls-2" cx="1085.73" cy="263.25" r="6.84" />
+                            <circle class="cls-2" cx="1108.02" cy="256.41" r="6.84" />
+                            <circle class="cls-2" cx="372.29" cy="528.29" r="6.84" />
+                            <circle class="cls-2" cx="325.06" cy="371.83" r="6.84" />
+                            <circle class="cls-2" cx="182.95" cy="321.51" r="6.84" />
+                            <circle class="cls-2" cx="277.39" cy="307.83" r="6.84" />
+                            <circle class="cls-2" cx="295.21" cy="354.01" r="17.82" />
+                            <circle class="cls-2" cx="257.31" cy="367.25" r="13.24" />
+                            <circle class="cls-2" cx="769.06" cy="225.3" r="6.84" />
+                            <circle class="cls-2" cx="988.74" cy="270.1" r="17.76" />
+                            <circle class="cls-2" cx="1078.89" cy="175.31" r="21.07" />
+                            <circle class="cls-2" cx="1092.57" cy="196.39" r="13.96" />
+                            <circle class="cls-2" cx="1006.51" cy="340.93" r="6.84" />
+                            <circle class="cls-2" cx="1067.41" cy="384" r="25.16" />
+                            <circle class="cls-2" cx="934.13" cy="347.77" r="6.84" />
+                            <circle class="cls-2" cx="978.48" cy="356.99" r="10.26" />
+                            <circle class="cls-2" cx="1067.41" cy="356.99" r="13.68" />
+                            <circle class="cls-2" cx="1020.19" cy="390.84" r="6.84" />
+                            <circle class="cls-2" cx="1027.03" cy="383.99" r="6.84" />
+                            <circle class="cls-2" cx="1121.7" cy="321.51" r="6.84" />
+                            <circle class="cls-2" cx="1092.57" cy="300.99" r="6.84" />
+                            <circle class="cls-2" cx="401.86" cy="510.41" r="6.84" />
+                            <circle class="cls-2" cx="454.16" cy="564.37" r="22.29" />
+                            <circle class="cls-2" cx="809.66" cy="321.51" r="6.84" />
+                            <circle class="cls-2" cx="495.53" cy="531.04" r="9.6" />
                         </svg>
                         <!--<img src="https://geology.com/world/world-map.gif" />-->
                     </div>
                 </div>
                 <!--#5 Graph-->
                 <div class="row">
-                    Graph
+                    <h5>Total No. of Confirmed Cases in 2019</h5>
+                    <div class="col-6">
+                        <p>Mainland China</p>
+                        <canvas id="Chart1"></canvas>
+                    </div>
+                    <div class="col-6">
+                        <p> Worldwide</p>
+                        <canvas id="Chart2"></canvas>
+                    </div>
                 </div>
             </div>
             <!--Column 3-->
             <div class="col-3">
                 <div class="row">
                     <!--#6 Total Deaths-->
-                    <div class="col">
-                        Total Deaths
+                    <div class="col-6">
+                        <h5>Total Deaths by Country / Region</h5>
+                        <ol id="task6list"></ol>
                     </div>
                     <!--#7 Total Recovered-->
-                    <div class="col">
-                        Total Recovered
+                    <div class="col-6">
+                        <h5>Total Recovered by Country / Region</h5>
+                        <ol id="task7list"></ol>
                     </div>
                 </div>
                 <!--#8 Latest News-->
