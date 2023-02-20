@@ -103,12 +103,18 @@ circle {
 }
 /*#5 Graph / Chart*/
 p{
+
     text-decoration:underline;
     padding:12px;
 }
 /*#7 Total Deaths & Recovered*/
 h5 {
     word-wrap: break-word;
+}
+/*#8 Latest News*/
+.news > span{
+   float:right;
+   padding: 5px;
 }
 @media(max-width: 768px) {
     .row{
