@@ -2,6 +2,7 @@
 function test() {
     alert("egg");
 }
+// Loaded on site
 function preLoad(){
     sortTask3List()
 }
@@ -14,8 +15,8 @@ function sortTask3List() {
         { country: "Brazil", case: 64 },
         { country: "Australia", case: 120 },
         { country: "USA", case: 234 },
-        { country: "China", case: 348 },
-        { country: "Russia", case: 453 },
+        { country: "China", case: 448 },
+        { country: "Russia", case: 553 },
     ];
     if (btnValue == 0) {
         document.getElementById("sortButton").innerText = "Sorted by: Highest";
@@ -27,6 +28,7 @@ function sortTask3List() {
         document.getElementById("sortButton").value = 0;
     }
     data.forEach(fillTask3List);
+    data.forEach(mapSeverity);
 }
 function fillTask3List(item, index){
     var list = document.getElementById("task3list");
@@ -49,3 +51,26 @@ function mapflash(content) {
     }, 5000);
 }
 //Task 4: Map
+function mapSeverity(item) {
+    var id = item.country;
+    var cases = item.case;
+    var path = document.getElementById(id);
+    if (cases >= 500) {
+        path.style.fill = "#f70000";
+    }
+    else if (cases > 400) {
+        path.style.fill = "#ff5500";
+    }
+    else if (cases > 300) {
+        path.style.fill = "#ff7900";
+    }
+    else if (cases > 200) {
+        path.style.fill = "#ffa300";
+    }
+    else if (cases > 100) {
+        path.style.fill = "#ffd400";
+    }
+    else{
+        path.style.fill = "#e7ff00";
+    };
+}
