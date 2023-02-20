@@ -39,6 +39,7 @@ function fillTask3List(item, index){
 function mapflash(content) {
     const array = content.split(" ")
     var path = document.getElementById(array[0]);
+    path.style.visibility = "visible";
     var length = path.getTotalLength();
     path.style.stroke = "blue";
     path.style.strokeWidth = "3px";
