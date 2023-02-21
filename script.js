@@ -245,6 +245,8 @@ function fillTask8List(item, index) {
     article.appendChild(p);
     article.appendChild(span);
 }
+
+
 // Part 2: Admin Portal
 function loadDropdown() {
     var data = datamain;
@@ -309,13 +311,13 @@ function showFields() {
                 document.getElementById('tcInput').value = item.case;
                 document.getElementById('tdInput').value = item.death;
                 document.getElementById('trInput').value = item.recovered;
+                return
             }
         });
     };
 }
 //Add Country/Region
 function modifyDatamain() {
-    console.log("ran");
     var data = datamain;
     var countryInput = document.getElementById("countryInput");
     var tcInput = document.getElementById("tcInput");
@@ -325,25 +327,142 @@ function modifyDatamain() {
     for (let i = 0; i < data.length; i++) {
         let item = data[i];
         // Add New Data
-        if (countryInput != item.country) {
-            if (item == data[data.length -1]) {
+        if (countryInput.value != item.country) {
+            if (i == data.length-1) {
                 data.push({
-                    country: country,
+                    country: countryInput.value,
                     case: tcInput.value,
                     death: tdInput.value,
                     recovered: trInput.value
                 });
-                //window.localStorage.removeItem('data1');
-                //window.localStorage.setItem('datamain', JSON.stringify(data));
+                window.localStorage.removeItem('data1');
+                window.localStorage.setItem('datamain', JSON.stringify(data));
                 alert("Country Added Successfully");
+                break;
             }
         }
         //Modify Existing Data
-        else if ((countryInput == item.country) && (countryInput.disabled == true)) {
-
+        else if ((countryInput.value == item.country) && (countryInput.disabled == true)) {
+            item.case = tcInput.value;
+            item.death = tdInput.value;
+            item.recovered = trInput.value;
+            window.localStorage.removeItem('data1');
+            window.localStorage.setItem('datamain', JSON.stringify(data));
+            alert("Country Modified Successfully");
+            break;
         }
         else {
             alert("Error. Already an Exisitng Country!");
         };
     }
 };
+// News 
+// Populate the dropdown with Articles
+function loadDropdown2() {
+    var data = newsdata;
+    /*  Populate the drop down with countries*/
+    data.forEach(function (item) {
+        const select = document.getElementById('dropdownA');
+        const option = document.createElement("option");
+        option.innerHTML = '"' + item.title + '"';
+        option.setAttribute('value', item.title);
+        select.appendChild(option);
+    });
+}
+// Unhide fields upon dropdown selection
+function showFields2() {
+    var data = newsdata;
+    const selectedOption = document.getElementById('dropdownA').value;
+    const titleInput = document.getElementById('titleInput');
+    const titleFields = document.getElementsByClassName('title');
+    const contentFields = document.getElementsByClassName('content');
+    const saveBtn = document.getElementById('saveBtn2');
+
+    //Add new Article
+    if (selectedOption == 'newArticle') {
+        if (data.length >= 5) {
+            alert("Sorry! Youve reach the max no. of Articles!")
+        }
+        else {
+            for (let i = 0; i < titleFields.length; i++) {
+                titleFields[i].style.visibility = 'visible';
+            }
+            for (let i = 0; i < contentFields.length; i++) {
+                contentFields[i].style.visibility = 'visible';
+            }
+            saveBtn.style.visibility = 'visible';
+
+            titleInput.value = '';
+            titleInput.disabled = false;
+            document.getElementById('linkInput').value = '';
+            document.getElementById('descInput').value = '';
+            document.getElementById('dateInput').value = '';
+        }
+        
+    }
+    // None Selected
+    else if (selectedOption == 'none') {
+        for (let i = 0; i < titleFields.length; i++) {
+            titleFields[i].style.visibility = 'hidden';
+        }
+        for (let i = 0; i < contentFields.length; i++) {
+            contentFields[i].style.visibility = 'hidden';
+        }
+        saveBtn.style.visibility = 'hidden';
+    }
+    //Existing Article
+    else {
+        for (let i = 0; i < titleFields.length; i++) {
+            titleFields[i].style.visibility = 'visible';
+        }
+        for (let i = 0; i < contentFields.length; i++) {
+            contentFields[i].style.visibility = 'visible';
+        }
+        saveBtn.style.visibility = 'visible';
+        titleInput.value = '"'+selectedOption+'"';
+        titleInput.disabled = true;
+        //populating fields with exisitng data
+        data.forEach(function (item) {
+            if (item.title == selectedOption) {
+                document.getElementById('linkInput').value = item.link;
+                document.getElementById('descInput').value = item.desc;
+                document.getElementById('dateInput').value = item.date;
+                return;
+            }
+        });
+    };
+}
+function modifyNews() {
+    var data = newsdata;
+    var titleInput = document.getElementById("titleInput");
+    var linkInput = document.getElementById("linkInput");
+    var descInput = document.getElementById("descInput");
+    var dateInput = document.getElementById("dateInput");
+
+    for (let i = 0; i < data.length; i++) {
+        let item = data[i];
+        // Add New Data
+        if (titleInput.disabled == false) {
+            data.push({
+                title: titleInput.value,
+                link: linkInput.value,
+                desc: descInput.value,
+                date: dateInput.value
+            });
+            window.localStorage.removeItem('data2');
+            window.localStorage.setItem('newsdata', JSON.stringify(data));
+            alert("Article Added Successfully");
+            return;
+        }
+        //Modify Existing Data
+        else{
+            item.link = linkInput.value;
+            item.desc = descInput.value;
+            item.date = dateInput.value;
+            window.localStorage.removeItem('data2');
+            window.localStorage.setItem('newsdata', JSON.stringify(data));
+            alert("Article Modified Successfully");
+            return;
+        }
+    }
+}

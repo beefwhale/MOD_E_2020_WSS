@@ -12,13 +12,13 @@
 
     <title>Admin Portal</title>
 </head>
-<body onload="loadDropdown()">
+<body onload="loadDropdown(); loadDropdown2();">
     <div class="container-fluid">
         <!--#1 Add/ Update Country/Region-->
         <h2>Amazing Admin Portal</h2>
         <div class="row">
             <div class="col">
-                <form onsubmit="modifyDatamain">
+                <form onsubmit="modifyDatamain()">
                     <!--Choose / Add Country Dropdown-->
                     <label>Choose a Country/Region:</label>
                     <select onchange="showFields()" id="dropdownC">
@@ -45,7 +45,28 @@
         <!--#3 Add/ Update News -->
         <div class="row">
             <div class="col">
-                Add/ Update News
+                <form onsubmit="modifyNews()">
+                    <!--Choose / Add News Dropdown-->
+                    <label>Choose an Article:</label>
+                    <select onchange="showFields2()" id="dropdownA">
+                        <option selected value="none">Choose an Option..</option>
+                        <option value="newArticle">Create a New Article</option>
+                    </select>
+                    <!--Article Contents-->
+                    <div class="title">
+                        <label>Enter New Title:</label>
+                        <input id="titleInput" type="text" required /><br />
+                    </div>
+                    <div class="content">
+                        <label>Link: </label>
+                        <input type="url" id="linkInput" required /><br />
+                        <label>Short Description:</label>
+                        <textarea type="text" id="descInput" required></textarea><br />
+                        <label>Publish Date:</label>
+                        <input type="date" id="dateInput" required /><br />
+                    </div>
+                    <input type="submit" id="saveBtn2">
+                </form>
             </div>
         </div>
     </div>
