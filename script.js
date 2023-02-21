@@ -2,13 +2,61 @@
 function test() {
     alert("egg");
 }
-const datamain = [
-    { country: "Brazil", case: 64, death: 1, recovered: 14 },
-    { country: "Australia", case: 120, death: 120, recovered: 102 },
-    { country: "USA", case: 234, death: 80, recovered: 9 },
-    { country: "China", case: 348, death: 7, recovered: 3 },
-    { country: "Russia", case: 453, death: 83, recovered: 8 },
-];
+
+//Local Storage
+function inputData1() {
+    const data1 = [
+        { country: "Brazil", case: 64, death: 1, recovered: 14 },
+        { country: "Australia", case: 120, death: 120, recovered: 102 },
+        { country: "USA", case: 234, death: 80, recovered: 9 },
+        { country: "China", case: 348, death: 7, recovered: 3 },
+        { country: "Russia", case: 453, death: 83, recovered: 8 },
+    ];
+    window.localStorage.setItem('datamain', JSON.stringify(data1));
+    var datamain = JSON.parse(window.localStorage.getItem('datamain'));
+}
+function inputData2() {
+    const data2 = [
+        {
+            title: "Rat gets Eaten!",
+            link: 'https://www.w3schools.com',
+            desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            date: '19-02-2022'
+        },
+        {
+            title: "Infected in the first wave, they navigated long COVID without a roadmap",
+            link: 'https://www.w3schools.com',
+            desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            date: '10-01-2023'
+        },
+        {
+            title: "Man who died in Singapore's first case linked to COVID-19 vaccine was otherwise healthy",
+            link: 'https://www.w3schools.com',
+            desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            date: '11-02-2023'
+        }
+    ];
+    window.localStorage.setItem('newsdata', JSON.stringify(data2));
+    var newsdata = JSON.parse(window.localStorage.getItem('newsdata'));
+}
+// Retrieving Data
+try {
+    var datamain = JSON.parse(window.localStorage.getItem('datamain'));
+    var newsdata = JSON.parse(window.localStorage.getItem('newsdata'));
+    if (datamain == null) {
+        inputData1();
+    }
+    if (newsdata == null) {
+        inputData2();
+    }
+    
+}
+catch {
+    inputData1();
+    inputData2();
+    alert("yes")
+}
+
 // Task 3: List of Countries Cases
 function sortTask3List() {
     var data = datamain;
@@ -111,7 +159,7 @@ function task5Chart() {
         }
     });
 }
-// Task 6 Total Deaths
+// Task 6: Total Deaths
 function sortTask6List() {
     var list = document.getElementById("task6list");
     list.innerHTML = "";
@@ -134,7 +182,7 @@ function fillTask6List(item, index) {
     li.setAttribute("value", index + 1)
     list.appendChild(li);
 }
-// Task 7 total recovered 
+// Task 7: total recovered 
 function sortTask7List() {
     var list = document.getElementById("task7list");
     list.innerHTML = "";
@@ -158,5 +206,48 @@ function fillTask7List(item, index) {
     li.setAttribute("value", index + 1)
     list.appendChild(li);
     console.log(li);
+}
+//Task 8: Latest News
+function sortTask8List() {
+    var list = document.getElementById("task8list");
+    list.innerHTML = "";
+    var data = newsdata;
+    data.sort((a, b) => {
+        if (a.date < b.date) {
+            return 1;
+        }
+        if (a.date > b.date) {
+            return -1;
+        }
+        return 0;
+    });
+
+    data.forEach(fillTask8List);
+}
+function fillTask8List(item, index) {
+    const list = document.getElementById("task8list");
+
+    //Adding article to the news list (Dynamic)
+    const newArticle = document.createElement("article");
+    newArticle.classList.add('news');
+    const id = 'article' + index
+    newArticle.setAttribute('id', id);
+    list.appendChild(newArticle);
+
+    //Adding article content (Dynamic)
+    const article = document.getElementById(id);
+    const hr = document.createElement("hr");
+    const h5 = document.createElement("h5");
+    const p = document.createElement("p");
+    const span = document.createElement("span");
+
+    h5.innerHTML = '<a href="' + item.link + '">' + item.title + "</a>";
+    p.innerHTML = item.desc;
+    span.innerHTML = '> ' + item.date;
+
+    article.appendChild(hr);
+    article.appendChild(h5);
+    article.appendChild(p);
+    article.appendChild(span);
 }
 
