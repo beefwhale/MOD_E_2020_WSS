@@ -34,21 +34,17 @@ body {
     align-items: center;
     justify-content: left;
 }
-#logo > img {
+#title img {
+    display: flex;
     width: 50px;
     padding: 5px;
 }
-#logo {
-    display: flex;
+#title h2{
+    width: 100%;
     vertical-align: middle;
-    flex-basis: 30%;
-}
-#header {
-    float:left;
-    vertical-align:middle;
-    display: inline;
-    width:contain;
-    padding-left: 10px;
+    text-align: left;
+    margin: 0px;
+    flex-basis: 90%;
 }
 /*#2 Confirmed Cases*/
 h1 {
@@ -102,7 +98,7 @@ circle {
     fill: #ef6054;
 }
 /*#5 Graph / Chart*/
-p{
+#charts p{
 
     text-decoration:underline;
     padding:12px;
@@ -112,9 +108,11 @@ h5 {
     word-wrap: break-word;
 }
 /*#8 Latest News*/
-.news > span{
-   float:right;
-   padding: 5px;
+.news {
+    display:grid;
+}
+.news span {
+    justify-self:end;
 }
 @media(max-width: 768px) {
     .row{
@@ -123,5 +121,8 @@ h5 {
     }
     .col-3, .col-6{
         width:100%;
+    }
+    #title h2{
+        text-align:center;
     }
 }
