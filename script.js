@@ -382,6 +382,7 @@ function showFields2() {
     if (selectedOption == 'newArticle') {
         if (data.length >= 5) {
             alert("Sorry! Youve reach the max no. of Articles!")
+            document.getElementById("nothing").selected = true;
         }
         else {
             for (let i = 0; i < titleFields.length; i++) {

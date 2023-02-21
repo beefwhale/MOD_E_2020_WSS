@@ -108,12 +108,19 @@ h5 {
     word-wrap: break-word;
 }
 /*#8 Latest News*/
+#task8list {
+    height:500px;
+    overflow: auto;
+
+}
 .news {
     display:grid;
+    
 }
 .news span {
     justify-self:end;
 }
+
 @media(max-width: 768px) {
     .row{
         flex-direction: column;
