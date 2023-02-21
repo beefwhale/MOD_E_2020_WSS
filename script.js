@@ -1,8 +1,4 @@
 
-function test() {
-    alert("egg");
-}
-
 //Local Storage
 function inputData1() {
     const data1 = [
@@ -54,7 +50,6 @@ try {
 catch {
     inputData1();
     inputData2();
-    alert("yes")
 }
 
 // Task 3: List of Countries Cases
@@ -250,4 +245,105 @@ function fillTask8List(item, index) {
     article.appendChild(p);
     article.appendChild(span);
 }
+// Part 2: Admin Portal
+function loadDropdown() {
+    var data = datamain;
+/*  Populate the drop down with countries*/
+    data.forEach(function(item) {
+        const select = document.getElementById('dropdownC');
+        const option = document.createElement("option");
+        option.innerHTML = item.country;
+        option.setAttribute('value', item.country);
+        select.appendChild(option);
+    });
+}
+// Unhide fields upon dropdown selection
+function showFields() {
+    var data = datamain;
+    const selectedOption = document.getElementById('dropdownC').value;
+    const countryInput = document.getElementById('countryInput');
+    const countryFields = document.getElementsByClassName('country');
+    const extrasFields = document.getElementsByClassName('extras');
+    const saveBtn = document.getElementById('saveBtn');
 
+    //Add new Country
+    if (selectedOption == 'newCountry') {
+        for (let i = 0; i < countryFields.length; i++) {
+            countryFields[i].style.visibility = 'visible';
+        }
+        for (let i = 0; i < extrasFields.length; i++) {
+            extrasFields[i].style.visibility = 'visible';
+        }
+        saveBtn.style.visibility = 'visible';
+
+        countryInput.value = '';
+        countryInput.disabled = false;
+        document.getElementById('tcInput').value = '';
+        document.getElementById('tdInput').value = '';
+        document.getElementById('trInput').value = '';
+    }
+    // None Selected
+    else if (selectedOption == 'none') {
+        for (let i = 0; i < countryFields.length; i++) {
+            countryFields[i].style.visibility = 'hidden';
+        }
+        for (let i = 0; i < extrasFields.length; i++) {
+            extrasFields[i].style.visibility = 'hidden';
+        }
+        saveBtn.style.visibility = 'hidden';
+    }
+    //Existing Country
+    else {
+        for (let i = 0; i < countryFields.length; i++) {
+            countryFields[i].style.visibility = 'visible';
+        }
+        for (let i = 0; i < extrasFields.length; i++) {
+            extrasFields[i].style.visibility = 'visible';
+        }
+        saveBtn.style.visibility = 'visible';
+        countryInput.value = selectedOption;
+        countryInput.disabled = true;
+        //populating fields with exisitng data
+        data.forEach(function (item) {
+            if (item.country == selectedOption) {
+                document.getElementById('tcInput').value = item.case;
+                document.getElementById('tdInput').value = item.death;
+                document.getElementById('trInput').value = item.recovered;
+            }
+        });
+    };
+}
+//Add Country/Region
+function modifyDatamain() {
+    console.log("ran");
+    var data = datamain;
+    var countryInput = document.getElementById("countryInput");
+    var tcInput = document.getElementById("tcInput");
+    var tdInput = document.getElementById("tdInput");
+    var trInput = document.getElementById("trInput");
+
+    for (let i = 0; i < data.length; i++) {
+        let item = data[i];
+        // Add New Data
+        if (countryInput != item.country) {
+            if (item == data[data.length -1]) {
+                data.push({
+                    country: country,
+                    case: tcInput.value,
+                    death: tdInput.value,
+                    recovered: trInput.value
+                });
+                //window.localStorage.removeItem('data1');
+                //window.localStorage.setItem('datamain', JSON.stringify(data));
+                alert("Country Added Successfully");
+            }
+        }
+        //Modify Existing Data
+        else if ((countryInput == item.country) && (countryInput.disabled == true)) {
+
+        }
+        else {
+            alert("Error. Already an Exisitng Country!");
+        };
+    }
+};

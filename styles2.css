@@ -27,3 +27,6 @@ button{
     border-radius:5px;
     background-color:lightblue;
 }
+.extras, .country, #saveBtn{
+    visibility:hidden;
+}
