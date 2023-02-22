@@ -1,4 +1,5 @@
-
+let datamain;
+let newsdata;
 //Local Storage
 function inputData1() {
     const data1 = [
@@ -9,7 +10,7 @@ function inputData1() {
         { country: "Russia", case: 453, death: 83, recovered: 8 },
     ];
     window.localStorage.setItem('datamain', JSON.stringify(data1));
-    var datamain = JSON.parse(window.localStorage.getItem('datamain'));
+    datamain = JSON.parse(window.localStorage.getItem('datamain'));
 }
 function inputData2() {
     const data2 = [
@@ -33,23 +34,28 @@ function inputData2() {
         }
     ];
     window.localStorage.setItem('newsdata', JSON.stringify(data2));
-    var newsdata = JSON.parse(window.localStorage.getItem('newsdata'));
+    newsdata = JSON.parse(window.localStorage.getItem('newsdata'));
 }
 // Retrieving Data
-try {
-    var datamain = JSON.parse(window.localStorage.getItem('datamain'));
-    var newsdata = JSON.parse(window.localStorage.getItem('newsdata'));
-    if (datamain == null) {
-        inputData1();
+function fillData(){
+    try {
+        datamain = JSON.parse(window.localStorage.getItem('datamain'));
+        newsdata = JSON.parse(window.localStorage.getItem('newsdata'));
+        
+        if (datamain === null || datamain === '') {
+            inputData1();
+            console.log("datamain" + datamain);
+        }
+        if (newsdata === null || datamain === '') {
+            inputData2();
+        }
+        
     }
-    if (newsdata == null) {
+    catch {
+        inputData1();
         inputData2();
     }
     
-}
-catch {
-    inputData1();
-    inputData2();
 }
 
 // Task 3: List of Countries Cases
@@ -244,6 +250,9 @@ function fillTask8List(item, index) {
     article.appendChild(h5);
     article.appendChild(p);
     article.appendChild(span);
+}
+function scrollNews() {
+    document.getElementById('task8list').scrollIntoView();
 }
 
 
@@ -467,3 +476,11 @@ function modifyNews() {
         }
     }
 }
+// Calls on startup
+fillData();
+sortTask3List(); 
+task5Chart(); 
+sortTask6List(); 
+sortTask7List(); 
+sortTask8List(); 
+scrollNews();
